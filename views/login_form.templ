@@ -1,0 +1,54 @@
+
+
+package views
+
+templ LoginForm() {
+	<form action="/login" method="post">
+		// <form hx-post="/hello" hx-target="this" hx-swap="outerHTML transition:true" class="sample-transition">
+		<div class="">
+			<h1 class="font-bold text-3xl text-teal-500 md:text-2xl">Enter your name</h1>
+			<p class="text-sm text-gray-500">in this field.</p>
+		</div>
+		<div class="">
+			<input type="text" name="username" placeholder="Name" class="cursor-pointer input input-bordered input-dm input-warning my-4 w-full" style="background-color: #ffffff00;" required/>
+			<input type="password" name="password" placeholder="Password" class="cursor-pointer input input-bordered input-dm input-warning my-4 w-full" style="background-color: #ffffff00;" required/>
+			<button type="submit" class="text-center text-gray-800 btn btn-outline  btn-accent w-full my-4 ">Submit</button>
+		</div>
+		<div hx-ext="remove-me" id="toTarget" class="flex-none"></div>
+	</form>
+}
+
+templ WftMsg( message string) {
+	<div
+ 		id="toBeClosed"
+ 		remove-me="4s"
+ 		class="bg-red-600  flex flex-row  mt-4 opacity-40  text-slate-50 "
+ 		_="init transition my opacity to 80% over 1 seconds then
+		wait 1s then
+		transition my opacity to 0% over 2 seconds"
+	>
+		<span class="material-symbols-outlined cursor-pointer basis-1/10 invisible">close</span>
+		<h1 class="flex-grow text-center mx-auto">{ message }</h1>
+		<span class="material-symbols-outlined cursor-pointer basis-1/10" _="on click remove #toBeClosed">close</span>
+	</div>
+}
+
+// templ FormHello() {
+// 	<form hx-post="/hello" hx-target="this" hx-swap="outerHTML transition:true" class="sample-transition mr-8">
+// 		<div class="mb-4">
+// 			<h1 class="text-teal-500 text-4xl font-bold">Enter your name</h1>
+// 			<p class="text-sm text-gray-500">in this field.</p>
+// 		</div>
+// 		<div class="mb-4">
+// 			<input
+//  				type="text"
+//  				name="name"
+//  				placeholder="Name"
+//  				class="w-full py-2 px-4 border rounded-md cursor-pointer"
+// 			/>
+// 		</div>
+// 		<div class="text-center text-gray-800 mx-20 ">
+// 			<button type="submit" class="btn  btn-outline  btn-accent w-full">Submit</button>
+// 		</div>
+// 	</form>
+// }

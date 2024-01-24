@@ -1,0 +1,102 @@
+@tailwind base;
+/* @import "tailwindcss/base"; */
+/* @import "tailwindcss/components"; */
+@tailwind components;
+/* @import "tailwindcss/utilities"; */
+@tailwind utilities;
+
+/*When you import fonts from Google Fonts, it's important to use the correct URL for the font files. The URL you provided (https://fonts.googleapis.com/css?family=Quicksand&display=swap) is actually a stylesheet that includes @font-face declarations and references to the font files.
+
+Here's how you should typically include the Quicksand font in your CSS file when working with Tailwind CSS: */
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+/*Ensure that the @import statement is at the top of your CSS file, and then use the defined font-family in your styles.
+
+If you want to use specific font files directly, you can do that as well:*/
+
+@font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('https://fonts.gstatic.com/s/quicksand/v31/6xK-dSZaM9iE8KbpRA_LJ3z8mH9BOJvgkP8o58a-wg.woff2') format('woff2');
+}
+
+
+/* body {
+    font-family: 'Quicksand', sans-serif;
+} */
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        /* //added */
+        transform: scaleX(0);
+    }
+
+    /* //added */
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes fade-out {
+
+    /* //added */
+    from {
+        transform: scaleX(1);
+    }
+
+    to {
+        opacity: 0;
+        /* //added */
+        transform: scaleX(0);
+    }
+}
+
+@keyframes slide-from-right {
+    from {
+        transform: translateX(490px);
+    }
+}
+
+@keyframes slide-to-left {
+    to {
+        transform: translateX(-490px);
+    }
+}
+
+/* define animations for the old and new content */
+::view-transition-old(slide-it) {
+    animation: 180ms cubic-bezier(0.4, 0, 1, 1) both fade-out,
+        600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+
+::view-transition-new(slide-it) {
+    animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
+        600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+/* tie the view transition to a given CSS class */
+.sample-transition {
+    view-transition-name: slide-it;
+}
+
+/* .smooth {
+    transition: all 3s ease-in;
+}
+
+.fade-me-out.htmx-swapping {
+    opacity: 0;
+    transition: opacity 3s ease-out;
+}
+
+#fade-me-in.htmx-added {
+    opacity: 0;
+}
+
+#fade-me-in {
+    opacity: 1;
+    transition: opacity 3s ease-out;
+} */

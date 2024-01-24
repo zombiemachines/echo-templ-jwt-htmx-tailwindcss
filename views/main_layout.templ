@@ -1,0 +1,21 @@
+package views
+
+templ MainLayout(name string) {
+	<html lang="en" data-theme="cyberpunk" class="hover:bg-yellow-100">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>HTMX { name }</title>
+			<link href="/static/css/output.css" rel="stylesheet"/>
+			<link href="/static/css/daisyui@2.6.0.full.css" rel="stylesheet" type="text/css"/>
+			<script src="/static/js/htmx-1.9.10.min.js"></script>
+			<script src="/static/js/_hyperscript-0.9.12.min.js"></script>
+			<script src="/static/js/htmx-ext_remove-me.js"></script>
+			<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+			//<script src="https://cdn.tailwindcss.com"></script>
+		</head>
+		<body class="">
+			{ children... }
+		</body>
+	</html>
+}
