@@ -17,7 +17,7 @@ var (
 	// JwtRefreshSecretKey    = "c0bee718-d567-4bd3-8d4c-9f523a83ec4c"
 )
 
-func ValidateToken(tokenString string) bool {
+func ValidateToken(tokenString string) (bool, string) {
 	// Define the secret key used to sign the tokens
 	secret := JwtSecretKey
 	// Parse the token
@@ -26,20 +26,22 @@ func ValidateToken(tokenString string) bool {
 	})
 	if err != nil {
 		fmt.Println("Error parsing token:", err)
-		return false
+		return false, ""
 	}
 	// Check if the token is valid
 	claims, ok := token.Claims.(*models.CustomClaims)
 	if ok && token.Valid {
-		isExpired := claims.VerifyExpiresAt(time.Now().Unix(), true)
-		if isExpired {
+		isExpired := claims.VerifyExpiresAt(time.Now().Unix(), true) //maybe should be isNotExpired
+		if isExpired {                                               //if isNotExpired{....
 			fmt.Println("Token has not expired.")
 			fmt.Printf("\n-----------Token is valid for user: %s +++++++++++\n", claims.Username)
-			return true
+			//GET USERNAME FROM CLAIMS
+			return true, claims.Username
 		}
 	}
 	fmt.Println("-----------Invalid token//Token has expired.+++++++++++")
-	return false
+
+	return false, ""
 }
 
 func CreateToken(name string, roles []string, c echo.Context) (string, error) {

@@ -32,21 +32,27 @@ func main() {
 	e.Use(middleware.Static("/static"))
 	e.Static("/static", "static")
 
+	// e.GET("/logout", controllers.LogoutHandler) // NOT WORKING
 	e.Use(middleware.Secure())
-	e.Any("/login", controllers.LoginHandler)
-	// e.POST("/logout", controllers.LogoutHandler)
+	e.GET("/login", controllers.LoginHandler).Name = "LOGIN"
+	e.POST("/login", controllers.LoginHandler)
+
 	e.GET("/", controllers.GoHomeHandler)
 
 	guardedRoutes := e.Group("/v1")
 	guardedRoutes.Use(middlewares.AuthCookieMiddleware)
+	guardedRoutes.Any("/logout", controllers.LogoutHandler)
+
 	guardedRoutes.Use(echojwt.WithConfig(echojwt.Config{
+		// ContextKey: "user",
 		SigningKey:   controllers.JwtSecretKey,
 		TokenLookup:  "cookie:auth", // "<source>:<name>"
 		ErrorHandler: controllers.JWTErrorChecker,
 	}))
+
 	guardedRoutes.Use(middlewares.TokenRefresherMiddleware)
 
-	guardedRoutes.GET("", controllers.HomeHandler).Name = "HOME"
+	guardedRoutes.GET("", controllers.HomeHandler).Name = "HOME" // to dodge the /v1 group
 
 	{
 		go func() {

@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -15,26 +16,49 @@ func AuthCookieMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		e := echo.New().Logger
 		cookie, err := c.Cookie(controllers.AccessTokenCookieName)
 		if err != nil {
+			// If the token is expired, remove the user from the context
+			c.Set("username", nil)
 			e.Infof("\n----Invalid Cookie----")
 			c.Response().Header().Set("Location", "/login")
 			return c.Redirect(301, "/login")
 		}
 		token := cookie.Value
 		if token == "" {
+			// If the token is expired, remove the user from the context
+			c.Set("username", nil)
 			e.Infof("\n----Empty token----")
 			c.Response().Header().Set("Location", "/login")
 			return c.Redirect(308, "/login")
 		}
-		if isValid := controllers.ValidateToken(token); !isValid {
+		isValid, claimUser := controllers.ValidateToken(token)
+		if !isValid {
+			// If the token is expired, remove the user from the context
+			c.Set("username", nil)
 			e.Infof("\n----Invalid token----")
 			c.Response().Header().Set("Location", "/login")
 			return c.Redirect(301, "/login")
 		}
+		fmt.Println("---------------CLAIMUSER IS : ", claimUser)
+		// if claimUser == "" {
+		// 	// If the token is expired, remove the user from the context
+		// 	c.Set("username", nil)
+		// 	e.Infof("\n----Invalid USERNAME CODE 1----")
+		// 	c.Response().Header().Set("Location", "/login")
+		// 	return c.Redirect(301, "/login")
+		// }
+
 		if token == "" {
+			// If the token is expired, remove the user from the context
+			c.Set("username", nil)
 			e.Infof("\n----Redirect To Login Page----")
 			c.Response().Header().Set("Location", "/login")
 			return c.Redirect(301, "/login")
 		}
+		//SET USERNAME IN CONTEXT
+		//CAUTION: c.Set("user") is already used by JWT to save the token
+		c.Set("username", claimUser)
+		// temp := c.Get("username")
+		// fmt.Printf("\n-----------MIDDLEWARE GET USER TYPE %+v+++++++++++\n", temp)
 
 		return next(c)
 	}
@@ -77,7 +101,7 @@ func TokenRefresherMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 		// Check time remaining for token to expire
 		if time.Until(time.Unix(claims.ExpiresAt, 0)) < 15*time.Minute {
 			// Make new token
-			expirationTime := time.Now().Add(time.Minute * 15)
+			expirationTime := time.Now().Add(time.Minute * 30)
 			claims.ExpiresAt = expirationTime.Unix()
 
 			token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
