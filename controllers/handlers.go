@@ -79,10 +79,6 @@ func LogoutHandler(c echo.Context) error {
 		Expires:  time.Unix(1, 0),
 		Path:     "/"}
 
-	// cookie := new(http.Cookie)
-	// cookie.Name = AccessTokenCookieName
-	// cookie.Value = ""
-	// cookie.Expires = time.Now().AddDate(0, 0, -1) // Expire the cookie in the past to delete it
 	c.SetCookie(rc)
 	// If the token is expired, remove the user from the context
 	c.Set("username", nil)

@@ -771,10 +771,6 @@ video {
   width: 0.25rem;
 }
 
-.w-1\/2 {
-  width: 50%;
-}
-
 .w-1\/6 {
   width: 16.666667%;
 }
@@ -999,6 +995,10 @@ video {
   justify-content: space-evenly;
 }
 
+.justify-items-end {
+  justify-items: end;
+}
+
 .gap-10 {
   gap: 2.5rem;
 }
@@ -1007,12 +1007,36 @@ video {
   gap: 0.5rem;
 }
 
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.gap-9 {
+  gap: 2.25rem;
+}
+
 .divide-current > :not([hidden]) ~ :not([hidden]) {
   border-color: currentColor;
 }
 
 .divide-transparent > :not([hidden]) ~ :not([hidden]) {
   border-color: transparent;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.justify-self-start {
+  justify-self: start;
+}
+
+.justify-self-end {
+  justify-self: end;
+}
+
+.justify-self-stretch {
+  justify-self: stretch;
 }
 
 .rounded-2xl {
@@ -1252,9 +1276,34 @@ video {
   padding: 1rem;
 }
 
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.px-9 {
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
 }
 
 .py-10 {
@@ -1734,10 +1783,6 @@ If you want to use specific font files directly, you can do that as well:*/
     opacity: 1;
     transition: opacity 3s ease-out;
 } */
-
-.hover\:w-full:hover {
-  width: 100%;
-}
 
 .hover\:bg-pink-400:hover {
   --tw-bg-opacity: 1;

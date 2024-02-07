@@ -42,7 +42,7 @@ func LoginPage() templ.Component {
 	})
 }
 
-func HomePage() templ.Component {
+func HomePage(name string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -55,7 +55,15 @@ func HomePage() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"container mx-auto px-4 pt-8 md:pt-20 min-h-screen grid md:grid-cols-[minmax(0,1fr),minmax(auto,20rem)] gap-10 justify-center\"><div class=\"h-min\"><img class=\"\" src=\"/static/img/forest.jpg\" alt=\"picture of a forest\"></div><div class=\"items-start\"></div></section>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<section class=\"container px-4 pt-8 md:pt-20 grid md:grid-cols-[minmax(0,1fr),minmax(auto,20rem)] gap-10 justify-center\"><img src=\"/static/img/forest.jpg\" alt=\"picture of a forest\"><div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = Card(name).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

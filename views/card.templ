@@ -3,7 +3,7 @@ package views
 templ Card(name string) {
 	<div id="cardEntrada-2" class="bg-gradient-to-r drop-shadow-2xl from-pink-500 hover:drop-shadow-3xl p-4 sample-transition shadow-lg text-center to-indigo-500 via-purple-500">
 		<div class="cursor-pointer duration-300">
-			<a hx-get="/form" hx-target="#cardEntrada-2" hx-swap="outerHTML transition:true"><img src="static/img/icons8_cancel_3.svg" class="hover:bg-pink-400 rounded-full transform transition-all" style="width: 8%;" alt="Close Icon"/></a>
+			<a hx-get="/form" hx-target="#cardEntrada-2" hx-swap="outerHTML transition:true"><img src="static/img/icons8_cancel_3.svg" class="hover:bg-pink-400 rounded-full transform transition-all" style="width: 8%;" alt="Close Icon" _="on click remove #cardEntrada-2"/></a>
 		</div>
 		<img class="pt w-3/4 mx-auto hover:bg-white-800 hover:mix-blend-overlay rounded-full transform transition-all" src="static/img/icons8_male_user.svg" alt="User Icon"/>
 		<h3 class="text-white text-center pt-2">{ name }</h3>
@@ -12,17 +12,3 @@ templ Card(name string) {
 		<hr class="text-white w-4/6  mx-auto "/>
 	</div>
 }
-
-/*
-	<div id="cardEntrada-2" class="sample-transition p-4 text-center shadow-lg m-5 mr-8 rounded-5 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 width-280 rounded-md drop-shadow-2xl  hover:drop-shadow-3xl">
-		<div class="cursor-pointer w-72 transition-all duration-300 transform hover:w-full">
-			<a hx-get="/form" hx-target="#cardEntrada-2" hx-swap="outerHTML transition:true"><img src="/static/img/icons8_cancel_3.svg" style="width: 8%;" alt="Close Icon"/></a>
-		</div>
-		<img class="pt-2 w-1/2 mx-auto" src="static/img/icons8_male_user.svg" alt="User Icon"/>
-		<h3 class="text-white text-center pt-2">{ name }</h3>
-		<p class="fw-bold pt-1 text-white">••••</p>
-		<p class="fw-light text-white">死神はりんごしか食べない</p>
-		<hr class="text-white w-4/6  mx-auto "/>
-	</div>
-
-*/

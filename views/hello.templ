@@ -11,12 +11,15 @@ templ LoginPage() {
 	</section>
 }
 
-templ HomePage() {
-	<section class="container mx-auto px-4 pt-8 md:pt-20 min-h-screen grid md:grid-cols-[minmax(0,1fr),minmax(auto,20rem)] gap-10 justify-center">
-		<div class="h-min">
-			<img class="" src="/static/img/forest.jpg" alt="picture of a forest"/>
+templ HomePage(name string) {
+	<section class="container px-4 pt-8 md:pt-20 grid md:grid-cols-[minmax(0,1fr),minmax(auto,20rem)] gap-10 justify-center">
+		// <div class="h-min">
+		<img src="/static/img/forest.jpg" alt="picture of a forest"/>
+		// </div>
+		<div>
+			//class="justify-self-start"
+			@Card(name)
 		</div>
-		<div class="items-start"></div>
 	</section>
 }
 
